@@ -391,3 +391,17 @@ h1 {
 @media (max-width: 768px) {
     .search-input { font-size: 0.9rem; padding: 12px 35px; }
 }
+/* ---- Métricas extra del modelo ---- */
+.extra-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.extra-card, .extra-block { background: #0f0f0f; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.extra-block { margin-top: 16px; }
+.extra-value { font-family: 'Teko', sans-serif; font-size: 2rem; color: #d4af37; line-height: 1; }
+.score-list { display: grid; gap: 8px; }
+.score-item { display: grid; grid-template-columns: 56px 1fr 64px; align-items: center; gap: 12px; }
+.score { font-weight: 700; color: #fff; font-size: 1.1rem; }
+.score-prob { text-align: right; color: #aaa; font-size: 0.9rem; }
+.h2h-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.h2h-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; background: #161616; border-radius: 6px; font-size: 0.9rem; color: #ccc; flex-wrap: wrap; }
+.h2h-list li span { color: #888; }
+.model-note { margin-top: 14px; font-size: 0.8rem; color: #777; text-align: center; }
+@media (max-width: 640px) { .extra-grid { grid-template-columns: 1fr; } }

@@ -33,4 +33,5 @@ def api_prediccion():
         return jsonify({'error': 'Error interno del servidor'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    import os
+    app.run(debug=os.getenv('FLASK_DEBUG') == '1', host='0.0.0.0', port=int(os.getenv('PORT', 5000)))

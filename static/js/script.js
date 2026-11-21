@@ -180,6 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if(datos.error) throw new Error(datos.error);
 
+            ui.localName.textContent = local;
+            ui.visitanteName.textContent = visitante;
+            renderExtras(datos, local, visitante);
             ui.localVal.textContent = datos.prob_local + "%";
             ui.empateVal.textContent = datos.prob_empate + "%";
             ui.visitanteVal.textContent = datos.prob_visitante + "%";
@@ -202,6 +205,25 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = 'INICIAR SIMULACIÓN <i class="fas fa-chevron-right"></i>';
         }
     });
+
+    function renderExtras(d, local, visitante) {
+        document.getElementById('xgVal').textContent = `${d.goles_esperados_local} - ${d.goles_esperados_visitante}`;
+        document.getElementById('over25Val').textContent = d.prob_mas_2_5 + '%';
+        document.getElementById('bttsVal').textContent = d.prob_ambos_marcan + '%';
+        const max = d.marcadores_probables[0]?.prob || 1;
+        document.getElementById('marcadores').innerHTML = d.marcadores_probables.map(m => `
+            <div class="score-item">
+                <span class="score">${m.marcador}</span>
+                <div class="mini-bar"><div class="fill-gold" style="width:${(m.prob / max) * 100}%"></div></div>
+                <span class="score-prob">${m.prob}%</span>
+            </div>`).join('');
+        const h = document.getElementById('historial');
+        h.innerHTML = d.historial.length
+            ? d.historial.map(x => `<li><span>${x.edicion} · ${x.ronda}</span><strong>${x.local} ${x.marcador} ${x.visitante}</strong></li>`).join('')
+            : '<li><span>Sin enfrentamientos previos en la Copa</span></li>';
+        document.getElementById('modelNote').textContent =
+            `Modelo de Poisson con ${d.partidos_local} partidos de ${local} y ${d.partidos_visitante} de ${visitante} (${d.ediciones[0]}-${d.ediciones[1]}), ponderando más las ediciones recientes.`;
+    }
 
     cargarEquipos();
 });
